@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 interface Project {
   number: string;
@@ -7,40 +7,42 @@ interface Project {
   category: string;
   description: string;
   tech: string[];
-  impact: string;
   year: string;
+  github: string;
+  live?: string;
 }
 
 const projects: Project[] = [
   {
     number: "01",
-    title: "Nexus Platform",
+    title: "Uni Results Hub",
     category: "Web Application",
     description:
-      "A next-generation SaaS platform for enterprise teams. Built from scratch with a focus on real-time collaboration, scalable architecture, and a seamless user experience that handles thousands of concurrent users.",
-    tech: ["React", "Node.js", "PostgreSQL", "WebSocket", "AWS"],
-    impact: "40% increase in team productivity",
-    year: "2024",
+      "A university results management platform built for seamless academic record access. Engineered with a modern React stack for fast, responsive performance and intuitive navigation across student result data.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "shadcn/ui"],
+    year: "2026",
+    github: "https://github.com/MrChuksx/uni-results-hub-09811d83",
   },
   {
     number: "02",
-    title: "Vault Finance",
-    category: "Fintech Dashboard",
+    title: "Guidora",
+    category: "Career Guidance Platform",
     description:
-      "A comprehensive financial analytics dashboard that transforms complex data into intuitive visualizations. Designed for precision and built for performance, handling millions of data points in real-time.",
-    tech: ["TypeScript", "Next.js", "D3.js", "Redis", "Stripe API"],
-    impact: "Processing $2M+ in transactions",
-    year: "2024",
+      "An intelligent career compass application that helps users navigate their professional journey. Features a robust backend with PostgreSQL for data persistence and a polished React frontend for an engaging user experience.",
+    tech: ["React", "TypeScript", "PostgreSQL", "Tailwind CSS", "Vite"],
+    year: "2025",
+    github: "https://github.com/MrChuksx/guidora-your-career-compass",
   },
   {
     number: "03",
-    title: "Echo Commerce",
-    category: "E-Commerce Platform",
+    title: "MrChuks Org",
+    category: "AI-Powered Platform",
     description:
-      "A headless commerce solution with a custom storefront that delivers sub-second load times. Engineered with a microservices architecture for infinite scalability and personalized shopping experiences.",
-    tech: ["React", "GraphQL", "Tailwind CSS", "Vercel", "Sanity CMS"],
-    impact: "3x conversion rate improvement",
-    year: "2023",
+      "A dynamic organization platform generated from Google Gemini's AI Studio template. Built with a modern TypeScript stack, showcasing the intersection of AI tooling and full-stack development.",
+    tech: ["TypeScript", "React", "Gemini AI", "Tailwind CSS", "Vercel"],
+    year: "2026",
+    github: "https://github.com/MrChuksx/MrChuksx-s-Org",
+    live: "https://mr-chuksx-s-org.vercel.app",
   },
 ];
 
@@ -89,13 +91,53 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           >
             {project.title}
           </motion.h3>
-          <p className="text-sm md:text-base text-muted-foreground font-body leading-relaxed">
+          <p className="text-sm md:text-base text-muted-foreground font-body leading-relaxed mb-6">
             {project.description}
           </p>
+
+          {/* Visit links */}
+          <div className="flex items-center gap-5">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/link flex items-center gap-2 text-xs tracking-[0.2em] uppercase font-body text-muted-foreground hover:text-primary transition-colors duration-300"
+            >
+              <span>GitHub</span>
+              <svg
+                className="w-3.5 h-3.5 transform transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path d="M4 12L12 4M12 4H5M12 4V11" />
+              </svg>
+            </a>
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/link flex items-center gap-2 text-xs tracking-[0.2em] uppercase font-body text-primary hover:text-foreground transition-colors duration-300"
+              >
+                <span>Live Site</span>
+                <svg
+                  className="w-3.5 h-3.5 transform transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M4 12L12 4M12 4H5M12 4V11" />
+                </svg>
+              </a>
+            )}
+          </div>
         </div>
 
-        {/* Right column - Tech & Impact */}
-        <div className="md:col-span-4 flex flex-col justify-between gap-6">
+        {/* Right column - Tech */}
+        <div className="md:col-span-4 flex flex-col justify-start gap-6">
           <div>
             <span className="text-[10px] tracking-[0.25em] uppercase text-dim font-body block mb-3">
               Technology
@@ -111,15 +153,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
               ))}
             </div>
           </div>
-
-          <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-dim font-body block mb-2">
-              Impact
-            </span>
-            <span className="text-sm font-body text-primary font-medium">
-              {project.impact}
-            </span>
-          </div>
         </div>
       </div>
     </motion.div>
@@ -128,33 +161,9 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const isTitleInView = useInView(titleRef, { once: true, margin: "-100px" });
 
   return (
     <section id="projects" ref={sectionRef} className="relative py-32 md:py-48 section-padding">
-      {/* Section header */}
-      <div ref={titleRef} className="mb-20 md:mb-32">
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={isTitleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-xs tracking-[0.3em] uppercase text-muted-foreground font-body block mb-4"
-        >
-          Selected Work
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          animate={isTitleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground"
-        >
-          Projects that
-          <br />
-          <span className="text-gradient-gold">define craft.</span>
-        </motion.h2>
-      </div>
-
       {/* Project list */}
       <div>
         {projects.map((project, i) => (
