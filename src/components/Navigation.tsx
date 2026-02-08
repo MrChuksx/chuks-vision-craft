@@ -28,23 +28,22 @@ const Navigation = () => {
     });
   };
   return <>
-      <motion.nav className="fixed top-0 left-0 right-0 z-50 section-padding py-5 flex items-center justify-between" style={{
+      <motion.nav className="fixed top-0 left-0 right-0 z-50 section-padding py-5 flex items-center justify-center" style={{
       backgroundColor: `hsla(225, 20%, 4%, ${bgOpacity})`,
       backdropFilter: "blur(12px)"
     }}>
-        
 
         {/* Desktop nav */}
         <motion.div initial={{
         opacity: 0,
-        x: 20
+        y: -10
       }} animate={{
         opacity: 1,
-        x: 0
+        y: 0
       }} transition={{
         duration: 0.8,
         delay: 0.4
-      }} className="hidden md:flex items-center gap-8">
+      }} className="hidden md:flex items-center gap-10">
           {navItems.map(item => <MagneticButton key={item.id} onClick={() => scrollTo(item.id)} className="text-sm font-body text-muted-foreground hover:text-foreground transition-colors duration-300 tracking-wide uppercase" strength={0.2}>
               {item.label}
             </MagneticButton>)}
@@ -53,10 +52,10 @@ const Navigation = () => {
         {/* Mobile hamburger button */}
         <motion.button initial={{
         opacity: 0,
-        x: 20
+        y: -10
       }} animate={{
         opacity: 1,
-        x: 0
+        y: 0
       }} transition={{
         duration: 0.8,
         delay: 0.4
