@@ -84,24 +84,6 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center section-padding">
-        {/* Profile Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 flex justify-center"
-        >
-          <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-2 border-primary/30 glow-gold">
-            <img
-              src={profilePhoto}
-              alt="MrChuks"
-              className="w-full h-full object-cover"
-            />
-            {/* Ring glow effect */}
-            <div className="absolute inset-0 rounded-full border border-primary/20" />
-          </div>
-        </motion.div>
-
         {/* Preheader */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -138,6 +120,24 @@ const Hero = () => {
             ))}
           </span>
         </motion.h1>
+
+        {/* Profile Image - below brand name */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 flex justify-center"
+        >
+          <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-2 border-primary/30 glow-gold">
+            <img
+              src={profilePhoto}
+              alt="MrChuks"
+              className="w-full h-full object-cover"
+            />
+            {/* Ring glow effect */}
+            <div className="absolute inset-0 rounded-full border border-primary/20" />
+          </div>
+        </motion.div>
 
         {/* Tagline */}
         <motion.p
