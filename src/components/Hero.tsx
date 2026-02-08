@@ -1,11 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import profilePhoto from "@/assets/profile-photo.jpg";
 
-interface HeroProps {
-  profileImage?: string;
-}
-
-const Hero = ({ profileImage }: HeroProps = {}) => {
+const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -94,18 +91,12 @@ const Hero = ({ profileImage }: HeroProps = {}) => {
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 flex justify-center"
         >
-          <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-primary/30 glow-gold">
-            {profileImage ? (
-              <img
-                src={profileImage}
-                alt="MrChuks"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-dark-elevated flex items-center justify-center">
-                <span className="font-display text-2xl md:text-3xl font-bold text-gradient-gold">MC</span>
-              </div>
-            )}
+          <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-2 border-primary/30 glow-gold">
+            <img
+              src={profilePhoto}
+              alt="MrChuks"
+              className="w-full h-full object-cover"
+            />
             {/* Ring glow effect */}
             <div className="absolute inset-0 rounded-full border border-primary/20" />
           </div>
@@ -182,23 +173,6 @@ const Hero = ({ profileImage }: HeroProps = {}) => {
           </motion.button>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-      >
-        <span className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-body">
-          Scroll
-        </span>
-        <motion.div
-          className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent"
-          animate={{ scaleY: [0, 1, 0], originY: 0 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
 
       {/* Bottom fade overlay */}
       <motion.div
