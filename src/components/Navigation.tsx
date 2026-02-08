@@ -9,6 +9,9 @@ const navItems = [{
   label: "About",
   id: "about"
 }, {
+  label: "Contact",
+  id: "contact"
+}, {
   label: "Connect",
   id: "footer"
 }];
