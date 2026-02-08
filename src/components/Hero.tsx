@@ -1,7 +1,11 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 
-const Hero = () => {
+interface HeroProps {
+  profileImage?: string;
+}
+
+const Hero = ({ profileImage }: HeroProps = {}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -83,11 +87,35 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center section-padding">
+        {/* Profile Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 flex justify-center"
+        >
+          <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-primary/30 glow-gold">
+            {profileImage ? (
+              <img
+                src={profileImage}
+                alt="MrChuks"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-dark-elevated flex items-center justify-center">
+                <span className="font-display text-2xl md:text-3xl font-bold text-gradient-gold">MC</span>
+              </div>
+            )}
+            {/* Ring glow effect */}
+            <div className="absolute inset-0 rounded-full border border-primary/20" />
+          </div>
+        </motion.div>
+
         {/* Preheader */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           style={{ y: subtitleY }}
           className="mb-8"
         >
